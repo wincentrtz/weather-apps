@@ -17,12 +17,16 @@ class CardBody extends Component {
   };
 
   render() {
+    const {
+      applicable_date,
+      weather_state_abbr,
+      max_temp,
+      min_temp
+    } = this.props.weather;
     return (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">
-            {this.getDateName(this.props.weather.applicable_date)}
-          </h5>
+          <h5 className="card-title">{this.getDateName(applicable_date)}</h5>
           <hr />
           <div className="row">
             <div className="col-6">
@@ -30,14 +34,14 @@ class CardBody extends Component {
                 src={
                   config.apiUrl +
                   "/static/img/weather/png/64/" +
-                  this.props.weather.weather_state_abbr +
+                  weather_state_abbr +
                   ".png"
                 }
               />
             </div>
             <div className="col-6 text-right">
-              <h6>{Math.ceil(this.props.weather.max_temp)}°</h6>
-              <h6>{Math.ceil(this.props.weather.min_temp)}°</h6>
+              <h6>{Math.ceil(max_temp)}°</h6>
+              <h6>{Math.ceil(min_temp)}°</h6>
             </div>
           </div>
         </div>

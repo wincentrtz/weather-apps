@@ -21,12 +21,13 @@ class Weather extends Component {
   }
 
   render() {
+    const { weathers } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-1" />
-          {this.state.weathers.map(weather => (
-            <div className="col-2" key={weather.id}>
+          <div className="col-12 col-md-1" />
+          {weathers.map(weather => (
+            <div className="col-12 col-md-2" key={weather.id}>
               <CardBody weather={weather} />
             </div>
           ))}
