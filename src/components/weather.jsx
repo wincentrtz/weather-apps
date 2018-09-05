@@ -2,31 +2,54 @@ import React, { Component } from "react";
 import CardBody from "./cardBody";
 import { getWoeId, getWeather } from "../services/weatherServices";
 import config from "../config.json";
+import { toast, ToastContainer } from "react-toastify";
 
 class Weather extends Component {
   state = {
     nowWeather: "",
-    weathers: []
+    weathers: [],
+    query: "",
+    loading: ""
   };
 
-  async componentDidMount() {
-    let { data } = await getWoeId();
-    const weather = await getWeather(data[0].woeid);
-    const nextDay = weather.data.consolidated_weather.filter(
-      w => weather.data.consolidated_weather.indexOf(w) !== 0
-    );
-    this.setState({
-      nowWeather: weather.data.consolidated_weather[0],
-      weathers: nextDay
-    });
+  async queryWeather(query) {
+    try {
+      let { data } = await getWoeId(query);
+      const weather = await getWeather(data[0].woeid);
+      const nextDay = weather.data.consolidated_weather.filter(
+        w => weather.data.consolidated_weather.indexOf(w) !== 0
+      );
+      toast.success("Here's the weather");
+      this.setState({
+        nowWeather: weather.data.consolidated_weather[0],
+        weathers: nextDay
+      });
+    } catch (ex) {
+      console.log(ex);
+      toast.error("Cities not found.");
+      const weathers = [];
+      this.setState({ weathers });
+    }
   }
+
+  handleChange = ({ currentTarget: input }) => {
+    const query = input.value;
+    this.setState({ query });
+  };
 
   render() {
     const { weathers, nowWeather } = this.state;
-    console.log(weathers);
+    console.log(this.state);
     return (
       <div className="container-fluid">
-        <input type="text" />
+        <ToastContainer />
+        <input onChange={this.handleChange} type="text" />
+        <button
+          className="btn btn-success"
+          onClick={() => this.queryWeather(this.state.query)}
+        >
+          Search
+        </button>
         {weathers.length > 0 && (
           <div>
             <div className="row">
