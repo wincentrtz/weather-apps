@@ -37,10 +37,17 @@ class Weather extends Component {
     this.setState({ query });
   };
 
+  landscapeSize = () => {
+    return this.state.weathers.length === 0 ? "100vh" : "auto";
+  };
+
   render() {
     const { weathers, nowWeather, query } = this.state;
     return (
-      <div className="container-fluid" style={{ padding: "30px" }}>
+      <div
+        className="container-fluid"
+        style={{ padding: "30px", height: this.landscapeSize() }}
+      >
         <ToastContainer />
         <input
           className="col-md-12"
@@ -63,7 +70,7 @@ class Weather extends Component {
               <div className="row">
                 <div className="col-12 col-md-1" />
                 {weathers.map(weather => (
-                  <div className="col-12 col-md-2 mb-2" key={weather.id}>
+                  <div className="col-12 col-lg-2 mb-2" key={weather.id}>
                     <CardBody weather={weather} />
                   </div>
                 ))}
