@@ -22,7 +22,38 @@
   font-size: large;
 }
 
+#root {
+  background-image: url("back.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  color: white;
+}
+
+#weather-input {
+  background-color: transparent !important;
+  border: none;
+  color: white;
+  font-size: 2.5em;
+}
+
+#weather-input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: white;
+}
+
+.card-body {
+  color: black;
+}
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
